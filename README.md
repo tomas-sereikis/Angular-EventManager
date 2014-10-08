@@ -1,4 +1,5 @@
 # Angular EventsManager
+[![Build Status](https://travis-ci.org/Tomas-Sereikis/Angular-EventManager.svg?branch=master)](https://travis-ci.org/Tomas-Sereikis/Angular-EventManager)
 
 Include Module: `tseed.eventsManager`
 Injector: `$events`
