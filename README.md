@@ -1,6 +1,6 @@
 # Angular EventsManager
-[![Build Status](https://travis-ci.org/Tomas-Sereikis/Angular-EventManager.svg?branch=master)](https://img.shields.io/travis/Tomas-Sereikis/Angular-EventManager/master.svg?style=flat)
-[![Dev Dependencies](https://david-dm.org/Tomas-Sereikis/Angular-EventManager/dev-status.svg?style=flat)](https://david-dm.org/Tomas-Sereikis/Angular-EventManager#info=devDependencies)
+[![Build Status](https://travis-ci.org/Tomas-Sereikis/Angular-EventManager.svg?branch=master)](https://travis-ci.org/Tomas-Sereikis/Angular-EventManager)
+[![Dev Dependencies](https://david-dm.org/Tomas-Sereikis/Angular-EventManager/dev-status.svg)](https://david-dm.org/Tomas-Sereikis/Angular-EventManager#info=devDependencies)
 
 Include Module: `tseed.eventsManager`
 Injector: `$events`

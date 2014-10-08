@@ -22,14 +22,25 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc'
             },
-            all: ['src/**/*.js']
+            all: ['src/eventManager.js']
+        },
+        coveralls: {
+            options: {
+                debug: true,
+                coverage_dir: './coverage',
+                dryRun: true,
+                force: true,
+                recursive: true
+            }
         }
     });
 
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-karma-coveralls');
 
     grunt.registerTask('test', ['karma']);
     grunt.registerTask('default', ['jshint', 'test', 'uglify']);
+    grunt.registerTask('travis', ['jshint', 'test', 'coveralls']);
 };

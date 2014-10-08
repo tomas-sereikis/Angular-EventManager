@@ -10,4 +10,4 @@ before_script:
   - bower --version
 
 script:
-  - grunt jshint test
+  - grunt travis
