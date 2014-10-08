@@ -1,7 +1,10 @@
 {
     "name": "AngularTSeedEventManager",
-    "version": "0.0.1",
-    "private": true,
+    "version": "0.0.0",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Tomas-Sereikis/Angular-EventManager.git"
+    },
     "dependencies": {
 
     },
@@ -14,5 +17,11 @@
         "karma-jasmine": "0.2.x",
         "karma-phantomjs-launcher": "~0.1",
         "grunt-karma": "0.9.x"
+    },
+    "engines": {
+        "node": ">= 0.10.0"
+    },
+    "scripts": {
+        "test": "grunt jshint test"
     }
 }
