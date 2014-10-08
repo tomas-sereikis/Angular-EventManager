@@ -9,7 +9,6 @@
         "coveralls": "^2.11.2"
     },
     "devDependencies": {
-        "coveralls": "^2.11.2",
         "grunt": "0.4.x",
         "grunt-cli": "0.1.x",
         "grunt-contrib-jshint": "0.10.x",
@@ -19,8 +18,7 @@
         "karma": "0.12.x",
         "karma-coverage": "0.2.x",
         "karma-jasmine": "0.2.x",
-        "karma-phantomjs-launcher": "~0.1",
-        "nodeunit": "^0.9.0"
+        "karma-phantomjs-launcher": "~0.1"
     },
     "engines": {
         "node": ">= 0.10.0"
