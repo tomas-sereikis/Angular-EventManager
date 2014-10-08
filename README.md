@@ -96,12 +96,7 @@ function ConfigController ($scope, $events) {
 
 ```
 
-##### For less then Internet Explorer 9 provide there prototypes:
+##### For less then Internet Explorer 9 provide these prototypes:
 
-Object.prototype.keys
-
-[https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)
-
-Array.prototype.forEach
-
-[https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
+* [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)
+* [https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
