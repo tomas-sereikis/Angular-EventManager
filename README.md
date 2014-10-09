@@ -6,6 +6,8 @@
 * Include Module: `tseed.eventsManager`
 * Injector: `$events`
 
+`bower install -g tseed-angular-event-manager`
+
 What is this module and why should you use it instead of native angular events?
 
 Well angular native events are slow because you manipulate events by $scope, so if you $emit or $broadcast event
