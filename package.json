@@ -6,7 +6,7 @@
         "url": "https://github.com/Tomas-Sereikis/Angular-EventManager.git"
     },
     "dependencies": {
-        "coveralls": "^2.11.2"
+
     },
     "devDependencies": {
         "grunt": "0.4.x",
