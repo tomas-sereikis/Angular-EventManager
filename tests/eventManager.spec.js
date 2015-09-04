@@ -1,161 +1,162 @@
 angular.module('test.tseed.eventManager', ['tseed.eventManager']);
 
 describe('test.tseed.eventManager', function () {
-    var _$events;
+  var $events;
 
-    beforeEach(function () {
-        module('test.tseed.eventManager');
-        inject(function ($events) {
-            _$events = $events;
-        });
+  beforeEach(function () {
+    module('test.tseed.eventManager');
+    inject(function (_$events_) {
+      $events = _$events_;
+    });
+  });
+
+  it('should send and receive event', function () {
+    var eventManager = $events.createEventManager();
+    var called = false;
+
+    var trigger = eventManager.on('test.0', function (list, num) {
+      expect(list).toEqual([1]);
+      expect(num).toBe(num);
+      called = true;
     });
 
-    it('should send and receive event', function () {
-        var eventManager = _$events.createEventManager();
-        var called = false;
+    eventManager.emit('test.0', [1], 2);
 
-        var trigger = eventManager.on('test.0', function (list, num) {
-            expect(list).toEqual([1]);
-            expect(num).toBe(num);
-            called = true;
-        });
+    expect(trigger).toEqual(jasmine.any(Number));
+    expect(called).toBeTruthy();
+  });
 
-        eventManager.emit('test.0', [1], 2);
+  it('should bind listener and trigger two emits', function () {
+    var eventManager = $events.createEventManager();
+    var times = 0;
+    var data = [];
 
-        expect(trigger).toEqual(jasmine.any(Number));
-        expect(called).toBeTruthy();
+    var trigger = eventManager.on('test.1', function (a, b, c) {
+      data.push([a, b, c]);
+      times++;
     });
 
-    it('should bind listener and trigger two emits', function () {
-        var eventManager = _$events.createEventManager();
-        var times = 0;
-        var data = [];
+    eventManager.emit('test.1', 1, 2, 3);
+    eventManager.emit('test.1', 4, 5, 6);
 
-        var trigger = eventManager.on('test.1', function (a, b, c) {
-            data.push([a, b, c]);
-            times++;
-        });
+    expect(trigger).toEqual(jasmine.any(Number));
+    expect(times).toBe(2);
+    expect(data).toEqual([[1, 2, 3], [4, 5, 6]]);
+  });
 
-        eventManager.emit('test.1', 1, 2, 3);
-        eventManager.emit('test.1', 4, 5, 6);
+  it('should get event manager by the same name and trigger events', function () {
+    var eventA = $events.getEventManager('name');
+    var eventB = $events.getEventManager('name');
 
-        expect(trigger).toEqual(jasmine.any(Number));
-        expect(times).toBe(2);
-        expect(data).toEqual([[1, 2, 3], [4, 5, 6]]);
+    var called = false;
+
+    eventA.on('test.2', function () {
+      called = true;
     });
 
-    it('should get event manager by the same name and trigger events', function () {
-        var eventA = _$events.getEventManager('name');
-        var eventB = _$events.getEventManager('name');
+    eventB.emit('test.2');
+    expect(called).toBeTruthy();
+  });
 
-        var called = false;
+  it('should trigger event unbind and trigger again', function () {
+    var eventManager = $events.createEventManager();
+    var times = 0;
 
-        eventA.on('test.2', function () {
-            called = true;
-        });
-
-        eventB.emit('test.2');
-        expect(called).toBeTruthy();
+    var trigger = eventManager.on('test.3', function () {
+      times++;
     });
 
-    it('should trigger event unbind and trigger again', function () {
-        var eventManager = _$events.createEventManager();
-        var times = 0;
+    eventManager.emit('test.3');
+    eventManager.off('test.3', trigger);
+    eventManager.emit('test.3');
 
-        var trigger = eventManager.on('test.3', function () {
-            times++;
-        });
+    expect(times).toBe(1);
+  });
 
-        eventManager.emit('test.3');
-        eventManager.off('test.3', trigger);
-        eventManager.emit('test.3');
+  it('should check if off event returns valid status', function () {
+    var eventManager = $events.createEventManager();
 
-        expect(times).toBe(1);
+    var trigger = eventManager.on('test.4', function () {
+    });
+    var status = eventManager.off('test.4', trigger);
+    expect(status).toBeTruthy();
+    status = eventManager.off('test.4', trigger);
+    expect(status).toBeFalsy();
+  });
+
+  it('should check if multiple event bind right', function () {
+    var eventManager = $events.createEventManager();
+    var eventResponseA = [];
+    var eventResponseB = [];
+
+    eventManager.on('test.5.a', function () {
+      eventResponseA.push(Array.prototype.slice.call(arguments));
     });
 
-    it('should check if off event returns valid status', function () {
-        var eventManager = _$events.createEventManager();
-
-        var trigger = eventManager.on('test.4', function () { });
-        var status = eventManager.off('test.4', trigger);
-        expect(status).toBeTruthy();
-        status = eventManager.off('test.4', trigger);
-        expect(status).toBeFalsy();
+    eventManager.on('test.5.b', function () {
+      eventResponseB.push(Array.prototype.slice.call(arguments));
     });
 
-    it('should check if multiple event bind right', function () {
-        var eventManager = _$events.createEventManager();
-        var eventResponseA = [];
-        var eventResponseB = [];
+    eventManager.emit('test.5.a', 'a', 1);
+    eventManager.emit('test.5.b', 'b', 1);
 
-        eventManager.on('test.5.a', function () {
-            eventResponseA.push(Array.prototype.slice.call(arguments));
-        });
+    expect(eventResponseA).toEqual([['a', 1]]);
+    expect(eventResponseB).toEqual([['b', 1]]);
+  });
 
-        eventManager.on('test.5.b', function () {
-            eventResponseB.push(Array.prototype.slice.call(arguments));
-        });
+  it('should check if multiple call works', function () {
+    var eventManager = $events.createEventManager();
+    var response = [];
 
-        eventManager.emit('test.5.a', 'a', 1);
-        eventManager.emit('test.5.b', 'b', 1);
-
-        expect(eventResponseA).toEqual([['a', 1]]);
-        expect(eventResponseB).toEqual([['b', 1]]);
+    eventManager.on('test.6', function () {
+      response.push(Array.prototype.slice.call(arguments));
     });
 
-    it('should check if multiple call works', function () {
-        var eventManager = _$events.createEventManager();
-        var response = [];
+    eventManager.emit('test.6', 1);
+    eventManager.emit('test.6', 2);
+    eventManager.emit('test.6', 3);
 
-        eventManager.on('test.6', function () {
-            response.push(Array.prototype.slice.call(arguments));
-        });
+    expect(response).toEqual([[1], [2], [3]]);
+  });
 
-        eventManager.emit('test.6', 1);
-        eventManager.emit('test.6', 2);
-        eventManager.emit('test.6', 3);
+  it('should check if allOff method removes all event listeners', function () {
+    var eventManager = $events.createEventManager();
+    var response = [];
 
-        expect(response).toEqual([[1], [2], [3]]);
+    eventManager.on('test.7', function (num) {
+      response.push(num);
     });
 
-    it('should check if allOff method removes all event listeners', function () {
-        var eventManager = _$events.createEventManager();
-        var response = [];
-
-        eventManager.on('test.7', function (num) {
-            response.push(num);
-        });
-
-        eventManager.on('test.7', function (num) {
-            response.push(num);
-        });
-
-        eventManager.emit('test.7', 1);
-        eventManager.allOff('test.7');
-        eventManager.emit('test.7', 2);
-
-        expect(response).toEqual([1, 1]);
+    eventManager.on('test.7', function (num) {
+      response.push(num);
     });
 
-    it('should trigger event with two listeners and then remove listeners by one', function () {
-        var eventManager = _$events.createEventManager();
-        var response = [];
+    eventManager.emit('test.7', 1);
+    eventManager.allOff('test.7');
+    eventManager.emit('test.7', 2);
 
-        var triggerA = eventManager.on('test.8', function (num) {
-            response.push(num);
-        });
+    expect(response).toEqual([1, 1]);
+  });
 
-        var triggerB = eventManager.on('test.8', function (num) {
-            response.push(num * num);
-        });
+  it('should trigger event with two listeners and then remove listeners by one', function () {
+    var eventManager = $events.createEventManager();
+    var response = [];
 
-        eventManager.emit('test.8', 2);
-        expect(response).toEqual([2, 4]);
-        eventManager.off('test.8', triggerB);
-        eventManager.emit('test.8', 3);
-        expect(response).toEqual([2, 4, 3]);
-        eventManager.off('test.8', triggerA);
-        eventManager.emit('test.8', 4);
-        expect(response).toEqual([2, 4, 3]);
+    var triggerA = eventManager.on('test.8', function (num) {
+      response.push(num);
     });
+
+    var triggerB = eventManager.on('test.8', function (num) {
+      response.push(num * num);
+    });
+
+    eventManager.emit('test.8', 2);
+    expect(response).toEqual([2, 4]);
+    eventManager.off('test.8', triggerB);
+    eventManager.emit('test.8', 3);
+    expect(response).toEqual([2, 4, 3]);
+    eventManager.off('test.8', triggerA);
+    eventManager.emit('test.8', 4);
+    expect(response).toEqual([2, 4, 3]);
+  });
 });

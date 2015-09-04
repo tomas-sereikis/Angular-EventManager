@@ -1,7 +1,4 @@
 # Angular EventManager
-[![Build Status](https://travis-ci.org/Tomas-Sereikis/Angular-EventManager.svg?branch=master)](https://travis-ci.org/Tomas-Sereikis/Angular-EventManager)
-[![Dev Dependencies](https://david-dm.org/Tomas-Sereikis/Angular-EventManager/dev-status.svg)](https://david-dm.org/Tomas-Sereikis/Angular-EventManager#info=devDependencies)
-[![Coverage Status](https://img.shields.io/coveralls/Tomas-Sereikis/Angular-EventManager.svg)](https://coveralls.io/r/Tomas-Sereikis/Angular-EventManager?branch=master)
 
 * Include Module: `tseed.eventsManager`
 * Injector: `$events`
@@ -98,7 +95,3 @@ function ConfigController ($scope, $events) {
 }
 
 ```
-
-For less then Internet Explorer 9 provide these prototypes:
-* [https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/keys)
-* [https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach)
