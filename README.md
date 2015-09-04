@@ -1,6 +1,6 @@
 # Angular EventManager
 
-* Include Module: `tseed.eventsManager`
+* Include Module: `tseed.eventManager`
 * Injector: `$events`
 
 `bower install -g tseed-angular-event-manager`
