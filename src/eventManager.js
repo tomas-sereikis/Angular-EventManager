@@ -8,7 +8,7 @@
      */
     var transnationalEvents;
     if (window.opener) {
-      transnationalEvents = window.document.transnationalEvents = window.opener.document.transnationalEvents;
+      transnationalEvents = window.document.transnationalEvents = window.opener.document.transnationalEvents || {};
     } else {
       transnationalEvents = window.document.transnationalEvents = {};
     }
