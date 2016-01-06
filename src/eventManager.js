@@ -8,7 +8,15 @@
      */
     var transnationalEvents;
     if (window.opener) {
-      transnationalEvents = window.document.transnationalEvents = window.opener.document.transnationalEvents || {};
+      var openerTransnationalEvents;
+      try {
+        // sometimes you can not access opener document and it causes an error when you try to do it
+        // so we wrap it in try catch making sure that this error dose not go out
+        openerTransnationalEvents = window.opener.document.transnationalEvents || {};
+      } catch (e) {
+        openerTransnationalEvents = {};
+      }
+      transnationalEvents = window.document.transnationalEvents = openerTransnationalEvents;
     } else {
       transnationalEvents = window.document.transnationalEvents = {};
     }
